@@ -1,0 +1,4 @@
+.month {
+  display: inline-block;
+  grid-column: span 1;
+}

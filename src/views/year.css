@@ -1,0 +1,18 @@
+.year {
+  margin: 1vw;
+}
+
+.year .calendar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.year .week-heading {
+  display: none;
+}
+
+.year .month {
+  margin: 20px;
+  border: solid black;
+  padding: 20px;
+}
