@@ -18,22 +18,20 @@ const names = ['January',
 class Month extends Component {
   constructor(props){
     super(props);
+    const whStyle = (props && props.whStyle) ? props.whStyle : 'long';
     const day = (props && props.date) ? props.date : new Date();
+    day.setDate(1);
     const month = day.getMonth();
     const days = [];
-    while (day.getMonth() === month){
-      day.setDate(day.getDate()-7);
-    }
-    do {
+    while (days.length < 6) {
       days.push(new Date(day));
       day.setDate(day.getDate()+7);
     }
-    while (day.getMonth() === month ||
-           day.getDate() - day.getDay() < 7);
     this.state = {
       days: days,
       day: day,
-      month: month
+      month: month,
+      whStyle: whStyle
     }
 
   }
@@ -46,7 +44,7 @@ class Month extends Component {
           this.state.days.map((e,i) => {
             if (i===0){
               return (
-                <Week date={e} key = {i}/>
+                <Week date={e} whStyle={this.state.whStyle} key = {i}/>
               )
             }
             return (
