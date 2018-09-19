@@ -31,9 +31,9 @@ class AddEvent extends Component {
         <label>Name:</label>
         <input name="name" onChange={this.handleChange}/><br/>
         <label>Date:</label>
-        <input name="date" onChange={this.handleChange}/><br/>
+        <input name="date" type="date" onChange={this.handleChange}/><br/>
         <label>Time:</label>
-        <input name="time" onChange={this.handleChange}/><br/>
+        <input name="time" type="time" onChange={this.handleChange}/><br/>
         <button onClick={this.handleClick}>submit</button>
       </div>
     )

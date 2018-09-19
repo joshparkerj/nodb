@@ -3,7 +3,7 @@ import axios from 'axios';
 const API_ADDRESS = 'http://localhost:8080/events';
 
 export function createEvent(Event){
-  axios.post(API_ADDRESS, {
+  return axios.post(API_ADDRESS, {
     name: Event.name,
     date: new Date(`${Event.date} ${Event.time}`)
   })
@@ -16,19 +16,20 @@ export function createEvent(Event){
 }
 
 export function readEvent(date){
-  axios.get(`${API_ADDRESS}/${date.valueOf()}`)
+  return axios.get(`${API_ADDRESS}/${date.valueOf()}`)
     .then(res => {
       return res.data;
     })
     .catch(err => {
       console.error(err);
+      return err;
     })
 }
 
-export function updateEvent(name, date, id){
-  axios.put(`${API_ADDRESS}/${id}`, {
-    name: name,
-    date: date
+export function updateEvent(Event, id){
+  return axios.put(`${API_ADDRESS}/${id}`, {
+    name: Event.name,
+    date: new Date(`${Event.date} ${Event.time}`)
   })
     .then(res => {
       return res.data;
@@ -39,7 +40,7 @@ export function updateEvent(name, date, id){
 }
 
 export function deleteEvent(id){
-  axios.delete(`${API_ADDRESS}/${id}`)
+  return axios.delete(`${API_ADDRESS}/${id}`)
     .then(res => {
       return res.data();
     })
