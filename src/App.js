@@ -6,7 +6,8 @@ import Month from './views/Month.js';
 import Week from './views/Week.js';
 import Day from './views/Day.js';
 import AddEvent from './views/AddEvent.js';
-import Event from './views/Event.js';
+import ModifyEvents from './views/ModifyEvents.js';
+import UpdateEvent from './views/UpdateEvent.js';
 
 class App extends Component {
   render() {
@@ -20,7 +21,7 @@ class App extends Component {
         </ul>
         <ul>
           <li><a href="/addevent">Add Event</a></li>
-          <li><a href="/event">Event</a></li>
+          <li><a href="/modifyevents">Modify Events</a></li>
         </ul>
         <Router>
           <Switch>
@@ -29,7 +30,8 @@ class App extends Component {
             <Route path='/week' component={Week}/>
             <Route path='/day' component={Day}/>
             <Route path='/addevent' component={AddEvent}/>
-            <Route path='/event' component={Event}/>
+            <Route path='/modifyevents' component={ModifyEvents}/>
+            <Route path='/updateevent/:id' component={UpdateEvent}/>
           </Switch>
         </Router>
       </div>

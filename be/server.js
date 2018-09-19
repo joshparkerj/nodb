@@ -20,6 +20,11 @@ app.get('/events/:date', (req,res) => {
   res.send(events.readEvent(date.toDateString()));
 })
 
+app.get('/events', (req,res) => {
+  const id = req.query.id;
+  res.send(events.eventById(id));
+})
+
 app.delete('/events/:id', (req,res) => {
   if (events.deleteEvent(Number(req.params.id))){
     res.status(200).send();
@@ -39,6 +44,8 @@ app.post('/events', (req,res) => {
 })
 
 app.put('/events/:id', (req,res) => {
+  console.log('tryna update event...');
+  console.log(req.body);
   const Event = events.updateEvent(req.body,Number(req.params.id));
   if (Event){
     res.status(200).send(Event);

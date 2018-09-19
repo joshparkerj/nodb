@@ -13,3 +13,20 @@
   border: solid black;
   padding: 20px;
 }
+
+.year .day .display-events {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(120, 220, 0);
+    color: rgba(0,0,0,0.8);
+    text-align: center;
+    padding: 5px 0;
+    border: 5px solid black;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+}
+
+.year .day:hover .display-events {
+    visibility: visible;
+}

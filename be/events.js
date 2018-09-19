@@ -18,6 +18,10 @@ function readEvent(date){
   return data.filter(e => e.date === date);
 }
 
+function eventById(id){
+  return data.filter(e => Number(e.id) === Number(id));
+}
+
 function updateEvent(Event,id){
   const E = data.find(e => Number(e.id) === Number(id));
   if (E){
@@ -55,5 +59,6 @@ events.createEvent = createEvent;
 events.readEvent = readEvent;
 events.updateEvent = updateEvent;
 events.deleteEvent = deleteEvent;
+events.eventById = eventById;
 
 module.exports = events;

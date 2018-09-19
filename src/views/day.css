@@ -1,4 +1,11 @@
 .day {
   display: inline-block;
+  margin: 8px;
   grid-column: span 1;
+}
+.day .event-modifiers {
+  display: none;
+}
+.eventful {
+  background-color: rgba(220,120,0,0.4);
 }

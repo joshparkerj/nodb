@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './add-event.css';
 import { createEvent } from '../data/api.js';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 class AddEvent extends Component {
   constructor(){
@@ -20,7 +21,7 @@ class AddEvent extends Component {
   handleClick = () => {
     createEvent(this.state);
     toast.success("Thank you!", {
-      position: toast.POSITION.TOP_CENTER
+      position: toast.POSITION.TOP_CENTER,
     });
   }
 
