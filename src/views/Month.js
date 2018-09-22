@@ -27,7 +27,7 @@ function Month(props){
   }
   return (
     <div className="month">
-      <div><h4>{names[month]}</h4></div>
+      <div className="month-name"><h4>{names[month]}</h4></div>
       {
         days.map((e,i) => {
           if (i===0){

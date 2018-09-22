@@ -69,19 +69,21 @@ class App extends Component {
             <li><a href="/addevent">Add Event</a></li>
             <li><a href="/modifyevents">Modify Events</a></li>
           </ul>
-          <label>date to display:</label>
-          <input
-            name="date"
-            type="date"
-            onChange={this.handleChange}
-            value={
-              this.state.date.toJSON() ?
-              this.state.date.toJSON().slice(0,10) :
-              this.state.today.toJSON().slice(0,10)
-            }
-          />
-          <button onClick={this.handleClick}>View date</button>
-          <button onClick={this.refreshEvents}>Refresh events</button>
+          <div className="heading-date-picker">
+            <label>date to display:</label>
+            <input
+              name="date"
+              type="date"
+              onChange={this.handleChange}
+              value={
+                this.state.date.toJSON() ?
+                this.state.date.toJSON().slice(0,10) :
+                this.state.today.toJSON().slice(0,10)
+              }
+            />
+            <br /><button onClick={this.handleClick}>View date</button>
+            <br /><button onClick={this.refreshEvents}>Refresh events</button>
+          </div>
         </div>
         <Router>
           <Switch>
