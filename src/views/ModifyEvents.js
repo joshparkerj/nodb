@@ -24,27 +24,56 @@ class ModifyEvents extends Component {
   handleDelete(id){
     deleteEvent(id)
       .then(res => {
-        this.handleLoad();
+        if(res === 200){
+          toast.success('deleted!', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 1500
+          })
+          this.handleLoad();
+        }else{
+          toast.error('it didn\'t work');
+        }
       })
       .catch(err => {
         console.error(err);
       })
-    toast.success('deleted!', {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 1500
-    })
   }
 
   handleLoad = () => {
     const d = new Date(this.state.date);
     const correctedDate = d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
-    readEvent(new Date(correctedDate))
+    readEvent()
       .then(res => {
+        return res.filter(e => e.date === correctedDate.toDateString());
+      })
+      .then(res => {
+        if (res.length < 1){
+          toast.warn('we have no events for that date');
+        }
         this.setState({currentEvents: res});
       })
       .catch(err => {
         console.error(err);
       })
+  }
+
+  renderEvents = () => {
+    try {
+      return this.state.currentEvents.map((e,i) => {
+        return (
+          <DisplayEvent
+            event={e}
+            key={i}
+            handleDelete={this.handleDelete}
+          />
+        )
+      })}
+    catch(e) {
+      console.log('no events data available');
+      console.error(e);
+      toast.error('couldn\'t get events data');
+      return '';
+    }
   }
 
   render(){
@@ -57,15 +86,9 @@ class ModifyEvents extends Component {
           <button onClick={this.handleLoad}>LOAD</button>
         </div>
         <div className="display-events">
-          {this.state.currentEvents.map((e,i) => {
-            return (
-              <DisplayEvent
-                event={e}
-                key={i}
-                handleDelete={this.handleDelete}
-              />
-            )
-          })}
+          {
+            this.renderEvents()
+          }
         </div>
       </div>
     )

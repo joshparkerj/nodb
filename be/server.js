@@ -15,9 +15,8 @@ app.get('/health', (req,res) => {
   console.log('health check ok');
 })
 
-app.get('/events/:date', (req,res) => {
-  const date = new Date(Number(req.params.date));
-  res.send(events.readEvent(date.toDateString()));
+app.get('/all-events/', (req,res) => {
+  res.send(events.readEvent());
 })
 
 app.get('/events', (req,res) => {

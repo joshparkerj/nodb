@@ -14,8 +14,8 @@ function createEvent(Event){
   return {id: id};
 }
 
-function readEvent(date){
-  return data.filter(e => e.date === date);
+function readEvent(startdate,enddate){
+  return data;
 }
 
 function eventById(id){

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './update-event.css';
 import { updateEvent, eventById } from '../data/api.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 
 class UpdateEvent extends Component {
   constructor(){
@@ -20,8 +23,6 @@ class UpdateEvent extends Component {
     const id = this.props.match.params.id;
     eventById(id)
       .then(res => {
-        console.log('got something ...');
-        console.log(res);
         this.setState({
           id: id,
           namewas: res[0].name,
@@ -41,21 +42,15 @@ class UpdateEvent extends Component {
 
   handleUpdate = () => {
     const date = new Date(this.state.date);
-    console.log(date);
+    date.setDate(date.getDate()+1);
     const formattedDate = date.toDateString();
-    console.log(formattedDate);
-    console.log({
-      name: this.state.name,
-      date: formattedDate,
-      time: this.state.time
-    })
     updateEvent({
       name: this.state.name,
       date: formattedDate,
       time: this.state.time
     },this.state.id)
       .then(res => {
-        console.log(res);
+        toast.success('updated!');
       })
       .catch(err => {
         console.error(err);
@@ -65,6 +60,7 @@ class UpdateEvent extends Component {
   render(){
     return (
       <div className="update-event">
+        <ToastContainer />
         <h4>Edit this event:</h4>
         <p> Name was {this.state.namewas}</p>
         <label>Name:</label>

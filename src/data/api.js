@@ -16,8 +16,8 @@ export function createEvent(Event){
     })
 }
 
-export function readEvent(date){
-  return axios.get(`${API_ADDRESS}/${date.valueOf()}`)
+export function readEvent(){
+  return axios.get('http://localhost:8080/all-events')
     .then(res => {
       return res.data;
     })
@@ -56,7 +56,7 @@ export function updateEvent(Event, id){
 export function deleteEvent(id){
   return axios.delete(`${API_ADDRESS}/${id}`)
     .then(res => {
-      return res.data;
+      return res.status;
     })
     .catch(err => {
       console.error(err);

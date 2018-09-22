@@ -19,10 +19,24 @@ class AddEvent extends Component {
   }
 
   handleClick = () => {
-    createEvent(this.state);
-    toast.success("Thank you!", {
-      position: toast.POSITION.TOP_CENTER,
-    });
+    createEvent(this.state)
+      .then(res => {
+        console.log(res);
+        console.log(typeof res);
+        console.log(typeof res === 'number');
+        if (typeof res === 'number'){
+          toast.success("Thank you!", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }else{
+          toast.error("It didn't work...", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      })
   }
 
   render(){
