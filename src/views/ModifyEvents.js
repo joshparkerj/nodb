@@ -42,9 +42,10 @@ class ModifyEvents extends Component {
   handleLoad = () => {
     const d = new Date(this.state.date);
     const correctedDate = d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+    const cd = new Date(correctedDate);
     readEvent()
       .then(res => {
-        return res.filter(e => e.date === correctedDate.toDateString());
+        return res.filter(e => e.date === cd.toDateString());
       })
       .then(res => {
         if (res.length < 1){

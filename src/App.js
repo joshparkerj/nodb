@@ -16,21 +16,13 @@ class App extends Component {
     const day = new Date();
     this.state = {
       day: day,
-      date: day,
+      date: new Date(day),
+      today: new Date(day),
       events: []
     }
   }
 
-  handleChange = event => {
-    const theDay = new Date(event.target.value);
-    this.setState({date: theDay});
-  }
-
-  handleClick = () => {
-    const d = new Date(this.state.date);
-    d.setDate(d.getDate()+1);
-    console.log(d);
-    this.setState({day: d});
+  componentDidMount(){
     readEvent()
       .then(res => {
         this.setState({events: res});
@@ -38,6 +30,29 @@ class App extends Component {
       .catch(err => {
         console.error(err);
       })
+  }
+
+  handleChange = event => {
+    const theDay = new Date(event.target.value);
+    const today = new Date();
+    this.setState({date: theDay || today});
+  }
+
+  handleClick = () => {
+    const d = new Date(this.state.date);
+    d.setDate(d.getDate()+1);
+    console.log(d);
+    this.setState({day: d});
+  }
+
+  refreshEvents = () => {
+    readEvent()
+    .then(res => {
+      this.setState({events: res});
+    })
+    .catch(err => {
+      console.error(err);
+    })
   }
 
   render() {
@@ -59,9 +74,14 @@ class App extends Component {
             name="date"
             type="date"
             onChange={this.handleChange}
-            value={this.state.date.toJSON().slice(0,10)}
+            value={
+              this.state.date.toJSON() ?
+              this.state.date.toJSON().slice(0,10) :
+              this.state.today.toJSON().slice(0,10)
+            }
           />
           <button onClick={this.handleClick}>View date</button>
+          <button onClick={this.refreshEvents}>Refresh events</button>
         </div>
         <Router>
           <Switch>
