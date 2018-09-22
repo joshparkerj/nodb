@@ -43,8 +43,6 @@ app.post('/events', (req,res) => {
 })
 
 app.put('/events/:id', (req,res) => {
-  console.log('tryna update event...');
-  console.log(req.body);
   const Event = events.updateEvent(req.body,Number(req.params.id));
   if (Event){
     res.status(200).send(Event);

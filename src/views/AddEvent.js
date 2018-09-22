@@ -21,9 +21,6 @@ class AddEvent extends Component {
   handleClick = () => {
     createEvent(this.state)
       .then(res => {
-        console.log(res);
-        console.log(typeof res);
-        console.log(typeof res === 'number');
         if (typeof res === 'number'){
           toast.success("Thank you!", {
             position: toast.POSITION.TOP_CENTER,
