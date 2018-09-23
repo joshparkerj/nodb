@@ -1,20 +1,23 @@
 const data = require('./data.json');
 const fs = require('fs');
 
-function createEvent(Event){
-  const id = 1 + Math.max(...data.map(e => e.id));
-  Event.id = id;
-  data.push(Event);
-  fs.writeFile('./data.json',JSON.stringify(data),err => {
+function writeFile(){
+  fs.writeFile('./data.json',JSON.stringify(data), err =>{
     if(err){
       console.error(err);
       return err;
     }
   });
+}
+
+function createEvent(Event){
+  Event.id = 1 + Math.max(...data.map(e => e.id));
+  data.push(Event);
+  writeFile();
   return {id: id};
 }
 
-function readEvent(startdate,enddate){
+function readEvent(){
   return data;
 }
 
@@ -28,12 +31,7 @@ function updateEvent(Event,id){
     for (i in Event){
       E[i] = Event[i];
     }
-    fs.writeFile('./data.json',JSON.stringify(data),err => {
-      if(err){
-        console.error(err);
-        return err;
-      }
-    });
+    writeFile();
     return E;
   }
   return null;
@@ -43,22 +41,18 @@ function deleteEvent(id){
   const i = data.findIndex(e => Number(e.id) === Number(id));
   if (i !== -1){
     data.splice(i,1);
-    fs.writeFile('./data.json',JSON.stringify(data),err => {
-      if(err){
-        console.error(err);
-        return err;
-      }
-    });
+    writeFile();
     return true;
   }
   return false;
 }
 
-const events = {};
-events.createEvent = createEvent;
-events.readEvent = readEvent;
-events.updateEvent = updateEvent;
-events.deleteEvent = deleteEvent;
-events.eventById = eventById;
+const events = {
+  createEvent: createEvent,
+  readEvent: readEvent,
+  updateEvent: updateEvent,
+  deleteEvent: deleteEvent,
+  eventById: eventById
+};
 
 module.exports = events;
