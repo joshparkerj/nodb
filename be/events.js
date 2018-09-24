@@ -14,7 +14,7 @@ function createEvent(Event){
   Event.id = 1 + Math.max(...data.map(e => e.id));
   data.push(Event);
   writeFile();
-  return {id: id};
+  return {id: Event.id};
 }
 
 function readEvent(){
