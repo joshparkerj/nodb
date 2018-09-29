@@ -10,7 +10,7 @@ class AddEvent extends Component {
     this.state = {
       name: '',
       date: 0,
-      time: 0
+      time: null
     }
   }
 

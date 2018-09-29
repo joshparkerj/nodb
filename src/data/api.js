@@ -10,7 +10,7 @@ const err = err => {
 export function createEvent(Event){
   return axios.post(`${API}events`, {
     name: Event.name,
-    date: new Date(`${Event.date} ${Event.time}`)
+    date: new Date(`${Event.date} ${Event.time || ''}`)
   })
     .then(res => {
       return res.data.id;
