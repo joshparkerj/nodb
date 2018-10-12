@@ -42,4 +42,8 @@ app.put('/events/:id', (req,res) => {
   }
 })
 
+app.get('*', (req,res) => {
+  res.sendFile('./build/index.html');
+})
+
 app.listen(process.env.PORT || 8080);
