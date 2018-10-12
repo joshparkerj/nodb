@@ -42,6 +42,4 @@ app.put('/events/:id', (req,res) => {
   }
 })
 
-app.listen(8080, function(){
-  console.log(`http://localhost:${this.address().port}`);
-})
+app.listen(process.env.PORT || 8080);
