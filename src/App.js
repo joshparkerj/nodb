@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Year from './views/Year.js';
 import Month from './views/Month.js';
@@ -57,17 +57,18 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app">
+      <Router>
+        <div className="app">
         <div className="app-heading">
           <ul>
-            <li><a href="/year">Year</a></li>
-            <li><a href="/month">Month</a></li>
-            <li><a href="/week">Week</a></li>
-            <li><a href="/day">Day</a></li>
+            <li><Link to="/year">Year</Link></li>
+            <li><Link to="/month">Month</Link></li>
+            <li><Link to="/week">Week</Link></li>
+            <li><Link to="/day">Day</Link></li>
           </ul>
           <ul>
-            <li><a href="/addevent">Add Event</a></li>
-            <li><a href="/modifyevents">Modify Events</a></li>
+            <li><Link to="/addevent">Add Event</Link></li>
+            <li><Link to="/modifyevents">Modify Events</Link></li>
           </ul>
           <div className="heading-date-picker">
             <label>date to display:</label>
@@ -85,7 +86,6 @@ class App extends Component {
             <br /><button onClick={this.refreshEvents}>Refresh events</button>
           </div>
         </div>
-        <Router>
           <Switch>
             <Route
               path='/year'
@@ -119,8 +119,8 @@ class App extends Component {
             <Route path='/modifyevents' component={ModifyEvents}/>
             <Route path='/updateevent/:id' component={UpdateEvent}/>
           </Switch>
+          </div>
         </Router>
-      </div>
     );
   }
 }

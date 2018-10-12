@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './display-event.css';
 
 function handleClick(id, hd){
@@ -15,9 +16,9 @@ function DisplayEvent(props) {
         <button onClick={e => handleClick(props.event.id,props.handleDelete)}>
           delete this event
         </button>
-        <a href={`/updateevent/${props.event.id}`}>
+        <Link to={`/updateevent/${props.event.id}`}>
           <button>update this event</button>
-        </a>
+        </Link>
       </div>
     </div>
   )

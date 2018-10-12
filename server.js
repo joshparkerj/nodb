@@ -7,6 +7,11 @@ const events = require('./events');
 app.use(bodyParser.json());
 app.use(cors({origin: ['http://localhost:3000']}));
 
+app.use(express.static('./build'));
+app.get('/',(req,res) => {
+  res.sendFile('./build/index.html');
+})
+
 app.get('/all-events/', (req,res) => {
   res.send(events.readEvent());
 })

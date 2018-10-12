@@ -4,7 +4,10 @@
   "description": "First main project at dev mountain",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "react-scripts start"
+    "build": "react-scripts build",
+    "react-start": "react-scripts start",
+    "start": "node server.js",
+    "heroku-postbuild": "npm run build"
   },
   "author": "Josh Parker",
   "repository": "https://github.com/joshparkerj/nodb.git",
