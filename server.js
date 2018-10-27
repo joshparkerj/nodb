@@ -21,25 +21,34 @@ app.get('/events', (req,res) => {
 })
 
 app.delete('/events/:id', (req,res) => {
-  res.status(events.deleteEvent(Number(req.params.id)) ? 200 : 404).send();
+  events.deleteEvent(Number(req.params.id))
+  .then(r => {
+    res.status(r ? 200 : 404).send();
+  })
 })
 
 app.post('/events', (req,res) => {
   const date = new Date(req.body.date);
-  res.send(events.createEvent({
+  events.createEvent({
     name: req.body.name,
     time: date.toLocaleTimeString(),
     date: date.toDateString()
-  }));
-})
+  })
+  .then(r => {
+    res.send(r);
+  })
+});
+
 
 app.put('/events/:id', (req,res) => {
-  const Event = events.updateEvent(req.body,Number(req.params.id));
-  if (Event){
-    res.status(200).send(Event);
-  }else{
-    res.status(404).send();
-  }
+  events.updateEvent(req.body,Number(req.params.id))
+  .then(r => {
+    if (r){
+      res.status(200).send(r);
+    }else{
+      res.status(404).send();
+    }
+  })
 })
 
 app.get('*', (req,res) => {

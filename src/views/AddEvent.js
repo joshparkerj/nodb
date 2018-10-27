@@ -4,6 +4,28 @@ import { createEvent } from '../data/api.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
+const handleChange = event => {
+  this.setState({[event.target.name]: event.target.value});
+}
+
+const handleClick = () => {
+  createEvent(this.state)
+    .then(res => {
+      if (typeof res === 'number'){
+        toast.success("Thank you!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }else{
+        toast.error("It didn't work...", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    })
+    .catch(err => {
+      console.error(err);
+    })
+}
+
 class AddEvent extends Component {
   constructor(){
     super();
@@ -12,28 +34,8 @@ class AddEvent extends Component {
       date: 0,
       time: null
     }
-  }
-
-  handleChange = event => {
-    this.setState({[event.target.name]: event.target.value});
-  }
-
-  handleClick = () => {
-    createEvent(this.state)
-      .then(res => {
-        if (typeof res === 'number'){
-          toast.success("Thank you!", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }else{
-          toast.error("It didn't work...", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      })
+    this.handleClick = handleClick;
+    this.handleChange = handleChange;
   }
 
   render(){

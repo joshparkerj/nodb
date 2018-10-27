@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "First main project at dev mountain",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --coverage",
     "build": "react-scripts build",
     "react-start": "react-scripts start",
     "start": "node server.js",
@@ -13,13 +13,24 @@
   "repository": "https://github.com/joshparkerj/nodb.git",
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "jest": "^23.6.0",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^1.1.5",
+    "react-test-renderer": "^16.6.0",
     "react-toastify": "^4.3.1"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|svg)$": "<rootDir/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   }
 }

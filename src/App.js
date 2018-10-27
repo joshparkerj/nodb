@@ -10,6 +10,30 @@ import ModifyEvents from './views/ModifyEvents.js';
 import UpdateEvent from './views/UpdateEvent.js';
 import { readEvent } from './data/api.js'
 
+const handleChange = event => {
+  const theDay = new Date(event.target.value);
+  const today = new Date();
+  this.setState({date: theDay || today});
+}
+
+const handleClick = () => {
+  const d = new Date(this.state.date);
+  d.setDate(d.getDate()+1);
+  console.log(d);
+  this.setState({day: d});
+}
+
+const refreshEvents = () => {
+  readEvent()
+  .then(res => {
+    this.setState({events: res});
+  })
+  .catch(err => {
+    console.error(err);
+  })
+}
+
+
 class App extends Component {
   constructor(){
     super();
@@ -20,6 +44,9 @@ class App extends Component {
       today: new Date(day),
       events: []
     }
+    this.handleChange = handleChange;
+    this.handleClick = handleClick;
+    this.refreshEvents = refreshEvents;
   }
 
   componentDidMount(){
@@ -30,29 +57,6 @@ class App extends Component {
       .catch(err => {
         console.error(err);
       })
-  }
-
-  handleChange = event => {
-    const theDay = new Date(event.target.value);
-    const today = new Date();
-    this.setState({date: theDay || today});
-  }
-
-  handleClick = () => {
-    const d = new Date(this.state.date);
-    d.setDate(d.getDate()+1);
-    console.log(d);
-    this.setState({day: d});
-  }
-
-  refreshEvents = () => {
-    readEvent()
-    .then(res => {
-      this.setState({events: res});
-    })
-    .catch(err => {
-      console.error(err);
-    })
   }
 
   render() {

@@ -2,19 +2,21 @@ const data = require('./data.json');
 const fs = require('fs');
 
 function writeFile(){
-  fs.writeFile('./data.json',JSON.stringify(data), err =>{
-    if(err){
-      console.error(err);
-      return err;
-    }
-  });
+  return new Promise( (res,rej) => {
+    fs.writeFile('./data.json',JSON.stringify(data),err => {
+      if (err) rej(err);
+      else res('ok');
+    })
+  })
 }
 
 function createEvent(Event){
   Event.id = 1 + Math.max(...data.map(e => e.id));
   data.push(Event);
-  writeFile();
-  return {id: Event.id};
+  return writeFile()
+  .then(r => {
+    return {id: Event.id};
+  })
 }
 
 function readEvent(){
@@ -28,11 +30,13 @@ function eventById(id){
 function updateEvent(Event,id){
   const E = data.find(e => Number(e.id) === Number(id));
   if (E){
-    for (i in Event){
+    for (let i in Event){
       E[i] = Event[i];
     }
-    writeFile();
-    return E;
+    return writeFile()
+    .then(r => {
+      return E;
+    })
   }
   return null;
 }
@@ -41,8 +45,10 @@ function deleteEvent(id){
   const i = data.findIndex(e => Number(e.id) === Number(id));
   if (i !== -1){
     data.splice(i,1);
-    writeFile();
-    return true;
+    return writeFile()
+    .then(r => {
+      return true;
+    })
   }
   return false;
 }
