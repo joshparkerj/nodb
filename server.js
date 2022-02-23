@@ -3,11 +3,20 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
 const events = require('./events');
+const rateLimit = require('express-rate-limit');
 
 app.use(bodyParser.json());
 app.use(cors({origin: ['http://localhost:3000']}));
 
 app.use(express.static('./build'));
+
+app.use(rateLimit({
+  windowMs: 100 * 60000, // 100 minutes
+  max: 100,
+  legacyHeaders: false,
+  standardHeaders: true,
+}));
+
 app.get('/',(req,res) => {
   res.sendFile('./build/index.html');
 })
