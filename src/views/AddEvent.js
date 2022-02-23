@@ -1,56 +1,68 @@
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react';
 import './add-event.css';
-import { createEvent } from '../data/api.js';
 import { ToastContainer, toast } from 'react-toastify';
+
+import { createEvent } from '../data/api';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-const handleChange = event => {
-  this.setState({[event.target.name]: event.target.value});
-}
+const handleChange = (event) => {
+  this.setState({ [event.target.name]: event.target.value });
+};
 
 const handleClick = () => {
   createEvent(this.state)
-    .then(res => {
-      if (typeof res === 'number'){
-        toast.success("Thank you!", {
+    .then((res) => {
+      if (typeof res === 'number') {
+        toast.success('Thank you!', {
           position: toast.POSITION.TOP_CENTER,
         });
-      }else{
+      } else {
         toast.error("It didn't work...", {
           position: toast.POSITION.TOP_CENTER,
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
-    })
-}
+    });
+};
 
 class AddEvent extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       name: '',
       date: 0,
-      time: null
-    }
+      time: null,
+    };
+
     this.handleClick = handleClick;
     this.handleChange = handleChange;
   }
 
-  render(){
+  render() {
     return (
       <div className="add-event">
         <ToastContainer />
-        <label>Name:</label>
-        <input name="name" onChange={this.handleChange}/><br/>
-        <label>Date:</label>
-        <input name="date" type="date" onChange={this.handleChange}/><br/>
-        <label>Time:</label>
-        <input name="time" type="time" onChange={this.handleChange}/><br/>
-        <button onClick={this.handleClick}>submit</button>
+        <label htmlFor="name">
+          Name:
+          <input id="name" name="name" onChange={this.handleChange} />
+        </label>
+        <br />
+        <label htmlFor="date">
+          Date:
+          <input id="date" name="date" type="date" onChange={this.handleChange} />
+        </label>
+        <br />
+        <label htmlFor="time">
+          Time:
+          <input id="time" name="time" type="time" onChange={this.handleChange} />
+        </label>
+        <br />
+        <button type="submit" onClick={this.handleClick}>submit</button>
       </div>
-    )
+    );
   }
 }
 
